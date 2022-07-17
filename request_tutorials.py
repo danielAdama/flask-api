@@ -18,7 +18,10 @@ print(response.status_code)
 
 # Post a data 2nd process
 url='https://jsonplaceholder.typicode.com/todos/'
-todo = {'userId': 1, 'title': 'Wash car', 'completed': True, 'id': 10}
+todo = {
+    'userId': 1, 'title': 'Wash car', 'completed': True, 'id': 10
+}
+
 header = {"Content-Type":"application/json"}
 response = requests.post(url=url, data=json.dumps(todo), headers=header)
 print(response.json())
