@@ -1,34 +1,22 @@
-from email import header
-import flask
-import requests
-import json
+from flask import Flask, jsonify, request
 
-# url = "https://jsonplaceholder.typicode.com/todos/1"
-# response = requests.get(url)
-# print(response.json())
-# print(response.status_code)
-# print(response.headers["Content-Type"])
+# you’ll look at a REST API in each framework. All the examples will be for a similar 
+# API that manages a collection of countries.
 
-## Post a data 1st process
-# url='https://jsonplaceholder.typicode.com/todos/'
-# todo = {"userId": 1, "title": "Buy milk", "completed": False}
-# header = {"Content-Type":"application/json"}
-# response = requests.post(url=url, data=json.dumps(todo), headers=header)
-# print(response.json())
-# print(response.status_code)
+# Each country will have the following fields:
+# name is the name of the country.
+# capital is the capital of the country.
+# area is the area of the country in square kilometers.
+# The fields name, capital, and area store data about a specific country somewhere in the world.
 
-## Post a data 2nd process
-# url='https://jsonplaceholder.typicode.com/todos/'
-# todo = {'userId': 1, 'title': 'Wash car', 'completed': True, 'id': 10}
-# header = {"Content-Type":"application/json"}
-# response = requests.post(url=url, data=json.dumps(todo), headers=header)
-# print(response.json())
-# print(response.status_code)
+app = Flask(__name__)
 
-## Patch to modify an entry
-# url='https://jsonplaceholder.typicode.com/todos/10'
-# todo = {"title": "Mow lawn"}
-# response = requests.patch(url=url, json=todo)
-# print(response.json())
-# print(response.status_code)
+countries = [
+    {'id':1, 'name':"Thailand", 'capital':"Bangkok", 'area':513120},
+    {'id':2, 'name':"Australia", 'capital':"Canberra", 'area':7617930},
+    {'id':3, 'name':"Egypt", 'capital':"Cairo", 'area':1010408}
+]
+
+def get_next_id():
+    return max(country['id'] for country in countries) + 1
 
