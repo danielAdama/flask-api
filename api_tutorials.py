@@ -1,3 +1,5 @@
+from crypt import methods
+from distutils.log import debug
 from flask import Flask, jsonify, request
 
 # you’ll look at a REST API in each framework. All the examples will be for a similar 
@@ -20,3 +22,19 @@ countries = [
 def get_next_id():
     return max(country['id'] for country in countries) + 1
 
+@app.route('/countries', methods=["GET"])
+def get_country():
+    return jsonify(countries)
+
+@app.route('/countries', methods=["POST"])
+def add_country():
+    if request.is_json:
+        country = request.get_json()
+        country['id'] = get_next_id()
+        countries.append(country)
+        return countries, 201 # A new country has been created
+    return {'error':'Request must be JSON'}, 415 # The request data format is not supported by the server.
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
